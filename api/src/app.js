@@ -100,7 +100,7 @@ app.post('/users', (req,res)=>{
     knex('users').returning('id').insert(data).then((id)=>{
         //console.log(`id ${id} added`)
         return res.status(201).json(id);})
-        .catch(err => console.log(`create User${data.username} Error: ${err}`));
+        //.catch(err => {console.log(`create User${data.username} Error: ${err}`)});
 
 });
 
@@ -125,7 +125,7 @@ app.post('/login',(req,res)=>{
             return res.status(401).json({users_id:0})
         }
     })
-    .catch(err => console.log(`login${username} Error: ${err}`));
+    //.catch(err => {console.log(`login${username} Error: ${err}`)});
 })
 
 module.exports = app;
