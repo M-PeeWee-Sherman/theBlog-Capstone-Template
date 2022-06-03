@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import AuthContext from "../Context";
+import {SpinningCircles} from 'react-loading-icons'
 
 const pads = {
     gap :2,
@@ -56,7 +57,9 @@ const Post=({updateFn,deleteFn,entry})=> {
     let handleInputContentChange=(e)=>{
         setContentState(e.target.value);
     }
-
+    if (entry.user_info.username==="ERROR") {
+        return(<SpinningCircles/>)}
+    else{
     return (<Grid
             container
             sx={{...pads,...outerGrid,}}
@@ -139,7 +142,7 @@ const Post=({updateFn,deleteFn,entry})=> {
                             }}
                     >Delete</Button> 
                 </Grid>
-            </Grid>)
+            </Grid>)}
 }
 
 import PropTypes from 'prop-types';
