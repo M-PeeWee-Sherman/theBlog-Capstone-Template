@@ -99,6 +99,7 @@ app.post('/users', (req,res)=>{
     knex('users').returning('id').insert(data).then((id)=>{
         //console.log(`id ${id} added`)
         return res.status(201).json(id);})
+        .catch(err => console.log(`create User${data.username} Error: ${err}`));
 
 });
 
