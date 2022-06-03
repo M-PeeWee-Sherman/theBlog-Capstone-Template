@@ -184,9 +184,13 @@ function App() {
           headers: {"content-type": "application/json"},
           body: JSON.stringify(credentials)
             
-        }).then((res)=>{
+        }).then((response) => {
+          //window.alert(`Fetch Answer REturned ${response}`);
+          return response.json()})
+        .then((res)=>{
           console.log(`App.js 169$${res}`)
           let idAnswer = parseInt(res[0].id);
+          
           if (idAnswer>0){
             //window.alert(`Answer ${idAnswer}`);
             setAuthObj({AuthId:idAnswer,PW:credentials.password, username:credentials.username});
