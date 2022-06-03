@@ -13,6 +13,11 @@ const useBloglist = () => {
     const [update, setUpdate] = useState(0);
     const updateBlogFn = ()=>{setUpdate(update+1);};
 
+    const [mapNames, setMapNames] = useState(new Map());
+    const updateMap = (k,v) => {
+        setMapNames(new Map(mapNames.set(k,v)));
+    }
+
     console.log(React,setNameList,updateUsers);    
     //pull total blog list    
     useEffect(()=>{
@@ -25,12 +30,14 @@ const useBloglist = () => {
         },(err) => console.log(`useBlogList: ${err}`));
     },[update])  
 
-    useEffect(() => {     
-            let mapNames = new Map();
-            nameList.forEach((entry)=>{
-                mapNames.set(entry.id,{firstname:entry.firstname, lastname:entry.lastname, username:entry.username})
-            })
     
+    useEffect(()=>{
+        nameList.forEach((entry)=>{
+            updateMap(entry.id,{firstname:entry.firstname, lastname:entry.lastname, username:entry.username})
+        })
+    }, [nameList])
+    
+    useEffect(() => {     
             setCombinedList(postList.map((entry)=>{
                 
                 let result = {...entry,user_info:{username:"ERROR"}}
@@ -39,7 +46,7 @@ const useBloglist = () => {
                 }
                 return result;
             }))
-    }, [update,postList]);
+    }, [update,postList, mapNames]);
 
 
     return [combinedList, setCombinedList, updateBlogFn];
