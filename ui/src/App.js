@@ -177,7 +177,9 @@ function App() {
             updateUsers();}
             
         })
-        .catch(err => console.log(`createUser: ${err}`));
+        .catch(err => 
+          { window.alert(`Registration succes but response timed-out ${err}`)
+            console.log(`createUser: ${err}`)});
 
     
 

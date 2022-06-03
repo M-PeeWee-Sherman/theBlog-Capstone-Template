@@ -87,6 +87,7 @@ app.get('/users', (req,res)=>{
 const saltRounds = 10;
 //Create User
 app.post('/users', (req,res)=>{
+    console.log("POST users");
     //console.log(`Post User Pinged for creation of ${req.body.username}`)
     let data = req.body;
     //knew('users').where({data.username}).count('active').then((total)=>{
@@ -105,6 +106,7 @@ app.post('/users', (req,res)=>{
 
 //Check submission and generate a 'key'
 app.post('/login',(req,res)=>{
+    console.log("POST login");
     var sentPW = req.body.password;
     var username = req.body.username;
     //console.log(`received username:${username} and password:${sentPW}`)
@@ -123,6 +125,7 @@ app.post('/login',(req,res)=>{
             return res.status(401).json({users_id:0})
         }
     })
+    .catch(err => console.log(`login${username} Error: ${err}`));
 })
 
 module.exports = app;
