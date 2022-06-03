@@ -16,6 +16,7 @@ const config = require('../knexfile')[env]
 const knex = require('knex')(config)
 
 app.get('/',(req,res)=>{
+    console.log(`Root Called ${Object.keys(req)}`);
     res.status(200).json('Hello from root route');
 })
 
