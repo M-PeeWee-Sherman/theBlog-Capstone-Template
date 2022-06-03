@@ -31,6 +31,7 @@ const Post=({updateFn,deleteFn,entry})=> {
     const [editState, setEditState] = useState(0);
     const [expanded,setExpanded] = useState("Expand");
     const [disableEdit, setDisableEdit] = useState(true);
+    const [disableExpand, setDisableExpand] = useState(true);
 
     useEffect(()=>{
         if (auth){
@@ -43,9 +44,11 @@ const Post=({updateFn,deleteFn,entry})=> {
         
         if(str.length>100 && expanded==="Expand"&& editFields[editState].readOnly){
             setContentState(`${str.slice(0,100)}...`);
+            setDisableExpand(false);
         }
         else{
             setContentState(str);
+            
         }
     }, [content, expanded, editState])
     
@@ -111,6 +114,7 @@ const Post=({updateFn,deleteFn,entry})=> {
                     justifyContent="center"
                     alignItems="center"> 
                     <Button
+                        disabled={disableExpand}
                         onClick={(e)=>{
                             e.preventDefault();
                             if (expanded==="Expand"){

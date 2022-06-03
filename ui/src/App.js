@@ -210,10 +210,12 @@ function App() {
     setCurrentUserView(event.target.value);
   };
   
+  //update filter drop down after a new user is registered
   useEffect(()=>{
     setFilteredNameChoices([{id:0,username:'View All'}].concat([...nameList]));
   },[nameList])
   
+  //update the lists of displayed posts after a new post is added of the filter view is changed
   useEffect(()=>{   
     setFilteredList([].concat(fullList.filter((element)=>(((currentUserView.id===0) || (element.users_id===currentUserView.id))))));
   },[fullList, currentUserView])
