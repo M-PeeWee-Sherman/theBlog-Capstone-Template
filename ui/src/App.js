@@ -78,9 +78,8 @@ function App() {
         
     }).then((res)=>{
      console.log(`App.js 79$${res}`)
-      updateFn()}
-     )
-     .catch(err => console.log(`submitUpdate: ${err}`));
+      updateFn()} , 
+      (err) => console.log(`submitUpdate: ${err}`));
   }
 
   let deleteEntry=(id)=>{
@@ -89,8 +88,8 @@ function App() {
       method: "DELETE", 
     }).then((res)=>{
       console.log(`App.js 90$${res}`)
-      updateFn()})
-     .catch(err => console.log(`deleteEntry: ${err}`))
+      updateFn()} , 
+      (err) => console.log(`deleteEntry: ${err}`))
   }
 
   let createEntry = (newEntry)=>{
@@ -104,8 +103,8 @@ function App() {
         
     }).then((res)=>{
       console.log(`App.js 105$${res}`)
-     updateFn()})
-     .catch(err => console.log(`createEntry: ${err}`));
+     updateFn()} , 
+     (err) => console.log(`createEntry: ${err}`));
   }
 
   //called on successful login
@@ -145,8 +144,8 @@ function App() {
 
       }
       
-    })
-    .catch(err => console.log(`loginUser: ${err}`));
+    } , 
+    (err) => console.log(`loginUser: ${err}`));
 
   }
   
@@ -176,9 +175,9 @@ function App() {
             changeView(idAnswer);
             updateUsers();}
             
-        })
-        .catch(err => 
-          { window.alert(`Registration succes but response timed-out ${err}`)
+          } , 
+          (err) => {
+            window.alert(`Registration succes but response timed-out ${err}`)
             console.log(`createUser: ${err}`)});
 
     

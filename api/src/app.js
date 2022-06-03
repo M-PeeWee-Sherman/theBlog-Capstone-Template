@@ -22,8 +22,8 @@ app.get('/',(req,res)=>{
 
 app.get('/posts', (req,res)=>{
     console.log("GET posts");
-    knex.select('*').from('posts').then((data)=>res.status(200).json(data))
-    .catch(err =>
+    knex.select('*').from('posts').then((data)=>res.status(200).json(data),
+    (err) =>
         res.status(404).json({
           message:
             `The data you are looking for could not be found. Please try again${err}`
@@ -99,8 +99,8 @@ app.post('/users', (req,res)=>{
     data.password = hash;
     knex('users').returning('id').insert(data).then((id)=>{
         //console.log(`id ${id} added`)
-        return res.status(201).json(id);})
-        //.catch(err => {console.log(`create User${data.username} Error: ${err}`)});
+        return res.status(201).json(id);},
+        (err) => {console.log(`create User${data.username} Error: ${err}`)});
 
 });
 
@@ -124,8 +124,8 @@ app.post('/login',(req,res)=>{
             console.log(`No Match found`);
             return res.status(401).json({users_id:0})
         }
-    })
-    //.catch(err => {console.log(`login${username} Error: ${err}`)});
+    },
+    (err) => {console.log(`login${username} Error: ${err}`)});
 })
 
 module.exports = app;

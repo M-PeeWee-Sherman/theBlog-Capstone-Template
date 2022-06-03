@@ -22,8 +22,7 @@ const useBloglist = () => {
         .then((data) => {
   
             setPostList(data);
-        })
-        .catch(err => console.log(`useBlogList: ${err}`));
+        },(err) => console.log(`useBlogList: ${err}`));
     },[update])  
 
     useEffect(() => {     

@@ -16,8 +16,7 @@ const useUsersList=()=>{
         .then((res) => res.json())
         .then((data) => {
             setNameList(data);
-        })
-        .catch(err => console.log(`useUserList: ${err}`));
+        } , (err) => console.log(`useUserList: ${err}`));
     },[update])
 
     return [nameList, setNameList, updateUsers];
