@@ -1,0 +1,114 @@
+.paper {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    align-items: center;
+    background:
+      linear-gradient(180deg, rgba(169,198,217,1) 15%, rgba(242,167,75,1) 90%);
+    box-shadow: .2px 12px 18px rgba(131,153,167,0.6);
+
+  }
+.paper:hover{
+    box-shadow: 0px 24px 36px rgba(131,153,167,0.99);
+}
+.avatar {
+    align-self: center;
+    background: blue;
+    width: 100px;
+    height: 100px;
+    box-shadow: 0px 0px 12px rgba(131,153,167,0.99);
+  }
+
+  .icon {
+    width: 80px;
+    height: 80px;
+    color: rgba(131,153,167,0.79);
+  }
+
+  .form {
+      margin: 4;
+  }
+
+  .labels {
+    padding: 10px 10px;
+    font-size: 10px;
+    line-height: 5px;
+    font-weight: 300;
+    opacity: 0.45;
+  }
+
+  .inputs {
+    position: relative;
+    margin-left: 2;
+    margin-right: 2;
+    font-family: Cutive Mono, monospace;
+    color: textDark;
+    font-size: 14px;
+    padding: 15px 15px;
+    border-radius: 8px;
+    border: 1.4px solid;
+    box-shadow: 1px 2px 20px rgba(169,198,217,0.29457423);
+
+
+  }
+  .inputs:hover {
+    background: rgba(169,198,217,0.36457423);
+  }
+
+  .button {
+    color: textDark;
+    background: rgba(255,255,255,.45);
+    position: relative;
+    font-weight: 400;
+    font-family: Raleway, sans-serif;
+    overflow: hidden;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    letter-spacing: 3px;
+  }
+.button::before{
+    position: absolute;
+    box-sizing: border-box;
+    border-radius: 8px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 1;
+}
+.button::after{
+    position: absolute;
+    box-sizing: border-box;
+    border-radius: 8px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    border-bottom: 2px solid rgba(255,255,255,.58);
+    border-top: 2px solid rgba(255,255,255,.58);
+    transform: scale(0,1);
+}
+.button:hover{
+    transform: scale(1,1);
+    transition: transform cubic-bezier(0.85,.36,.8,.42) 0.3s;
+}
+    
+    
+.error {
+    border: 1.2px solid red;
+    background: rgba(169,198,217,0.29457423);
+    color: red;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Raleway, sans-serif;
+    display: flex;
+    align-items: center;
+    padding-bottom: 2
+  },
+
+  .passwordEye {
+    color: rgba(131,153,167,0.9);
+    opacity: 0.7;
+  }
