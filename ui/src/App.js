@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 
 import useUsersList from './customHooks/useUsersList';
 import useBloglist from './customHooks/useBlogList';
@@ -21,7 +21,7 @@ function App() {
   const [nameList, setNameList, updateUsers] = useUsersList();
   console.log(setNameList);
   const [filterNameChoices, setFilteredNameChoices] = useState([]);
-  const [fullList, setFullList, updateFn] = useBloglist();
+  const [fullList, setFullList, updateBlogFn] = useBloglist();
   console.log(setFullList);
   const [filteredList, setFilteredList] = useState([]); //filtered blog entries
   const [openRegister, setOpenRegister] = useState(false);
@@ -30,42 +30,39 @@ function App() {
   const [logButtonValue, setLogButtonValue] = useState("Log In")
   const authObjContext = useState({AuthId:0,PW:"",username:"Guest"});
   const [authObj, setAuthObj] = authObjContext;
-  let [currentUserView, setCurrentUserView]= useState({id:0,username:'View All'}); //asign user id
 
 
   let openRegistration = (e) =>{
     e.preventDefault();
     setOpenRegister(true);  }
 
-  const changeView=(id)=>{
+  const changeView=(state, id)=>{
       let fullObject = filterNameChoices.filter((el)=>(parseInt(el.id)===parseInt(id)))
-      setCurrentUserView({...fullObject[0]});
+      let answer = {};
+      if (fullObject.length===0){
+        answer= {id:0,username:'View All'};
+      }else{
+        answer= {...fullObject[0]};
+      }
+      return answer;
   }
+  let [currentUserView, setCurrentUserView]= useReducer(changeView, {id:0,username:'View All'}); //asign user id
+
+
 
   const logOut=()=>{
     setLogButtonValue("Log In");
     setAuthObj({AuthId:0,PW:"", username:"Guest"});
-    changeView(0);
-    
+    setCurrentUserView(0);
 
   }
 
 
   useEffect( ()=>{
-
     if(authObj.AuthId>0){setDisableCreate(false)}else{setDisableCreate(true)}
   }
   ,[authObj])
-  
-    let openLog = (e) =>{
-      e.preventDefault();
-      if (logButtonValue==="Log In"){
-        setOpenLogin(true);
-      }else{
-        logOut();
-      }
-        
-    }
+
 
   let submitUpdate = (updateEntry)=>{
     const stamp = new Date().toUTCString();
@@ -79,7 +76,7 @@ function App() {
         
     }).then((res)=>{
      console.log(`App.js 79$${res}`)
-      updateFn()} , 
+     updateBlogFn()} , 
       (err) => console.log(`submitUpdate: ${err}`));
   }
 
@@ -89,8 +86,8 @@ function App() {
       method: "DELETE", 
     }).then((res)=>{
       console.log(`App.js 90$${res}`)
-      updateFn();
-      changeView(authObj.AuthId);} , 
+      updateBlogFn();
+      setCurrentUserView(authObj.AuthId);} , 
       (err) => console.log(`deleteEntry: ${err}`))
   }
 
@@ -105,9 +102,19 @@ function App() {
         
     }).then((res)=>{
       console.log(`App.js 105$${res}`);
-     updateFn();
-     changeView(authObj.AuthId);} , 
+      updateBlogFn();
+      setCurrentUserView(authObj.AuthId);} , 
      (err) => console.log(`createEntry: ${err}`));
+  }
+
+  let openLog = (e) =>{
+    e.preventDefault();
+    if (logButtonValue==="Log In"){
+      setOpenLogin(true);
+    }else{
+      logOut();
+    }
+      
   }
 
   //called on successful login
@@ -115,10 +122,18 @@ function App() {
     if (logButtonValue==="Log Out"){
       setOpenLogin(false);
     }
-      let index = filterNameChoices.findIndex((el)=>(el.id===authObj.AuthId))
-      document.getElementById("Filter_Dropdown").selectedIndex = index;
+     
+  },[logButtonValue ])
 
-  },[authObj, logButtonValue])
+  useEffect(()=>{
+    let index = filterNameChoices.findIndex((el)=>(el.id===currentUserView.id))
+    if(index<0){index=0;}
+    document.getElementById("Filter_Dropdown").selectedIndex = index;
+  },[currentUserView])
+
+  useEffect(()=>{
+    setCurrentUserView(authObj.AuthId);
+  },[filterNameChoices])
 
   let loginUser = (credentials)=>{
    
@@ -140,7 +155,7 @@ function App() {
         //window.alert(`Answer ${idAnswer}`);
         setAuthObj({AuthId:idAnswer,PW:credentials.password, username:credentials.username});
         setLogButtonValue("Log Out");
-        changeView(idAnswer);
+        setCurrentUserView(idAnswer);
 
       }else{
         window.alert("Incorrect username or password");
@@ -175,8 +190,9 @@ function App() {
             //window.alert(`Answer ${idAnswer}`);
             setAuthObj({AuthId:idAnswer,PW:credentials.password, username:credentials.username});
             setLogButtonValue("Log Out");
-            changeView(idAnswer);
-            updateUsers();}
+            updateUsers();
+            setCurrentUserView(idAnswer);
+            }
             
           } , 
           (err) => {
@@ -189,9 +205,9 @@ function App() {
 
 
   const handleFilterChange = (event) => {
-    let fullObject = filterNameChoices.filter((el)=>(parseInt(el.id)===parseInt(event.target.value)))
+    //let fullObject = filterNameChoices.filter((el)=>(parseInt(el.id)===parseInt(event.target.value)))
     //if(parseInt(event.target.value)===1){window.alert(`${filterNameChoices[1].id} ?= ${event.target.value} ${fullObject.length} ${Object.keys(fullObject)} ${fullObject.id}`)}
-    setCurrentUserView({...fullObject[0]});
+    setCurrentUserView(event.target.value);
   };
   
   useEffect(()=>{

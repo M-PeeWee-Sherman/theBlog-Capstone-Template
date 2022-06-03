@@ -52,10 +52,10 @@ const useBloglist = () => {
     return [combinedList, setCombinedList, updateBlogFn];
 }
 
-import PropTypes from 'prop-types';
-useBloglist.propTypes = {
-  setNameList: PropTypes.func,
-  updateUsers: PropTypes.func,
-}
+// import PropTypes from 'prop-types';
+// useBloglist.propTypes = {
+//   setNameList: PropTypes.func,
+//   updateUsers: PropTypes.func,
+// }
 
 export default useBloglist;
