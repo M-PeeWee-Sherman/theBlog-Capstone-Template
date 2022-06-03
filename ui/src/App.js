@@ -49,7 +49,8 @@ function App() {
 
   }
 
-  useEffect(()=>{
+
+  useEffect( ()=>{
 
     if(authObj.AuthId>0){setDisableCreate(false)}else{setDisableCreate(true)}
   }
