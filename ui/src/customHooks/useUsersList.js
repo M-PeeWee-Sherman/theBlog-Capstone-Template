@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import baseURL from '../baseURL'
+import config from '../config'
+const baseURL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const useUsersList=()=>{
     const [nameList, setNameList] = useState([]);

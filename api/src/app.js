@@ -24,7 +24,7 @@ app.get('/posts', (req,res)=>{
     .catch(err =>
         res.status(404).json({
           message:
-            'The data you are looking for could not be found. Please try again'
+            `The data you are looking for could not be found. Please try again${err}`
         })
       );
 })
@@ -34,7 +34,7 @@ app.get('/posts', (req,res)=>{
     .catch(err =>
         res.status(404).json({
           message:
-            'The data you are looking for could not be found. Please try again'
+            `The data you are looking for could not be found. Please try again${err}`
         })
       );
  })
@@ -103,7 +103,7 @@ app.post('/login',(req,res)=>{
     var username = req.body.username;
     //console.log(`received username:${username} and password:${sentPW}`)
     let salt = bcrypt.genSaltSync(saltRounds);
-    let hash = bcrypt.hashSync(sentPW, salt);
+    //let hash = bcrypt.hashSync(sentPW, salt);
     
     knex('users').where({username}).select('id','password').then((query)=>{
         //console.log(`password hash:${hash}`)
