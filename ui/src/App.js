@@ -23,7 +23,7 @@ function App() {
   const [filterNameChoices, setFilteredNameChoices] = useState([]);
   const [fullList, setFullList, updateBlogFn] = useBloglist();
   console.log(setFullList);
-  const [filteredList, setFilteredList] = useState([]); //filtered blog entries
+  const [filteredList, setFilteredList] = useState([-1]); //filtered blog entries
   const [openRegister, setOpenRegister] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const [disableCreate, setDisableCreate] = useState(true);
