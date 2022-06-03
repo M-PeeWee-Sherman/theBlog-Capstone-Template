@@ -46,6 +46,7 @@ function App() {
     setLogButtonValue("Log In");
     setAuthObj({AuthId:0,PW:"", username:"Guest"});
     changeView(0);
+    
 
   }
 
@@ -88,7 +89,8 @@ function App() {
       method: "DELETE", 
     }).then((res)=>{
       console.log(`App.js 90$${res}`)
-      updateFn()} , 
+      updateFn();
+      changeView(authObj.AuthId);} , 
       (err) => console.log(`deleteEntry: ${err}`))
   }
 
@@ -102,8 +104,9 @@ function App() {
       body: JSON.stringify(bodyData)
         
     }).then((res)=>{
-      console.log(`App.js 105$${res}`)
-     updateFn()} , 
+      console.log(`App.js 105$${res}`);
+     updateFn();
+     changeView(authObj.AuthId);} , 
      (err) => console.log(`createEntry: ${err}`));
   }
 
