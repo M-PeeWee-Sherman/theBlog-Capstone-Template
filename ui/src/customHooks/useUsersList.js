@@ -9,12 +9,13 @@ const useUsersList=()=>{
 
     //pull user name lookup list
     useEffect(()=>{
-        let urlNames = `${baseURL}users`;
+        let urlNames = `${baseURL}/users`;
         fetch(urlNames)
         .then((res) => res.json())
         .then((data) => {
             setNameList(data);
-        });
+        })
+        .catch(err => console.log(`useUserList: ${err}`));
     },[update])
 
     return [nameList, setNameList, updateUsers];

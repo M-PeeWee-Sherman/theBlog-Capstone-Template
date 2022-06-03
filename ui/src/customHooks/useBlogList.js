@@ -15,13 +15,14 @@ const useBloglist = () => {
 
     //pull total blog list    
     useEffect(()=>{
-        let urlPosts = `${baseURL}posts`;
+        let urlPosts = `${baseURL}/posts`;
         fetch(urlPosts)
         .then((res) => res.json())
         .then((data) => {
   
             setPostList(data);
-        });
+        })
+        .catch(err => console.log(`useBlogList: ${err}`));
     },[update])  
 
     useEffect(() => {     

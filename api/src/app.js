@@ -15,11 +15,12 @@ const env = process.env.NODE_ENV || 'development'
 const config = require('../knexfile')[env]
 const knex = require('knex')(config)
 
-app.get('/',(req,res)=>{
-    res.status(200).json('Hello from root route');
-})
+// app.get('/',(req,res)=>{
+//     res.status(200).json('Hello from root route');
+// })
 
 app.get('/posts', (req,res)=>{
+    console.log("GET posts");
     knex.select('*').from('posts').then((data)=>res.status(200).json(data))
     .catch(err =>
         res.status(404).json({
@@ -30,6 +31,7 @@ app.get('/posts', (req,res)=>{
 })
 
  app.get('/posts/:users_id', (req,res)=>{
+    console.log("posts/users_id");
     knex.select('*').from('posts').where({users_id:req.params.users_id}).then((data)=>res.status(200).json(data))
     .catch(err =>
         res.status(404).json({
@@ -41,6 +43,7 @@ app.get('/posts', (req,res)=>{
 
  //Update Post
  app.post('/posts', (req,res)=>{
+    console.log("POST posts");
     if (req.body){
     let data = req.body;
     //console.log("Body:" +req.body);
@@ -74,6 +77,7 @@ app.delete('/posts/:id', (req,res)=>{
 
 //Get All User Details
 app.get('/users', (req,res)=>{
+    console.log("GET users");
     //let users_id = req.params.users_id;
     knex('users').select(['id','firstname','lastname','username'])
     .then((data)=>res.status(200).json(data));
