@@ -153,7 +153,7 @@ function App() {
   let createUser = (newEntry)=>{
     //window.alert("Create Triggered")
 
-        let bodyData = { 
+        let credentials = { 
           firstname:newEntry.firstname,
           lastname:newEntry.lastname,
           username:newEntry.username,
@@ -164,11 +164,18 @@ function App() {
         fetch(`${baseURL}/users`, {
           method: "POST",
           headers: {"content-type": "application/json"},
-          body: JSON.stringify(bodyData)
+          body: JSON.stringify(credentials)
             
         }).then((res)=>{
           console.log(`App.js 169$${res}`)
-          updateUsers();
+          let idAnswer = parseInt(res.id);
+          if (idAnswer>0){
+            //window.alert(`Answer ${idAnswer}`);
+            setAuthObj({AuthId:idAnswer,PW:credentials.password, username:credentials.username});
+            setLogButtonValue("Log Out");
+            changeView(idAnswer);
+            updateUsers();}
+            
         })
         .catch(err => console.log(`createUser: ${err}`));
 
