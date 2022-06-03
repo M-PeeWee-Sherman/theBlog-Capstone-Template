@@ -60,7 +60,7 @@ const Registration = ({open, setOpen,createFn})=>{
     if (userParams.username === "") {
       setEntryIsValid(true);
     }else{
-    setEntryIsValid(false);
+      setEntryIsValid(false);
     }
 
   },[userParams]) 
