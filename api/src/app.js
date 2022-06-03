@@ -102,7 +102,7 @@ app.post('/login',(req,res)=>{
     var sentPW = req.body.password;
     var username = req.body.username;
     //console.log(`received username:${username} and password:${sentPW}`)
-    let salt = bcrypt.genSaltSync(saltRounds);
+    //let salt = bcrypt.genSaltSync(saltRounds);
     //let hash = bcrypt.hashSync(sentPW, salt);
     
     knex('users').where({username}).select('id','password').then((query)=>{

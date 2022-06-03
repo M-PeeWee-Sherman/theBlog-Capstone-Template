@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "TheBlog",
+  "name": "A Z-Prefix Capstone Project of a Blog",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
