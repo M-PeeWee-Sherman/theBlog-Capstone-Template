@@ -115,4 +115,13 @@ const Login = ({open, setOpen,loginFn})=>{
     );
   
 }
+
+import PropTypes from 'prop-types';
+Login.propTypes = {
+  setOpen: PropTypes.func,
+  open: PropTypes.bool,
+  loginFn:PropTypes.func,
+
+}
+
 export default Login;

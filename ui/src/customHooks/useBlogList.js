@@ -13,6 +13,7 @@ const useBloglist = () => {
     const [update, setUpdate] = useState(0);
     const updateBlogFn = ()=>{setUpdate(update+1);};
 
+    console.log(React,setNameList,updateUsers);    
     //pull total blog list    
     useEffect(()=>{
         let urlPosts = `${baseURL}/posts`;
@@ -43,6 +44,12 @@ const useBloglist = () => {
 
 
     return [combinedList, setCombinedList, updateBlogFn];
+}
+
+import PropTypes from 'prop-types';
+useBloglist.propTypes = {
+  setNameList: PropTypes.func,
+  updateUsers: PropTypes.func,
 }
 
 export default useBloglist;

@@ -12,6 +12,7 @@ const PostList=({updateFn,deleteFn,entryList})=> {
         return(<SpinningCircles/>)
     } else {
         return ([<Stack 
+                key="stack_1"
                 direction="column" 
                 spacing={1}
                 alignItems="center"
@@ -20,6 +21,14 @@ const PostList=({updateFn,deleteFn,entryList})=> {
                 { compiledPosts }
             </Stack>])
     }
+}
+
+import PropTypes from 'prop-types';
+PostList.propTypes = {
+  open: PropTypes.bool,
+  entryList: PropTypes.array,
+  updateFn:PropTypes.func,
+  deleteFn:PropTypes.func
 }
 
 export default PostList;

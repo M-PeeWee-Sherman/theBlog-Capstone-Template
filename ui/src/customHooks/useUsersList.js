@@ -7,6 +7,8 @@ const useUsersList=()=>{
     const [update, setUpdate] = useState(0);
     const updateUsers = ()=>{setUpdate(update+1);};
 
+    console.log(React);
+
     //pull user name lookup list
     useEffect(()=>{
         let urlNames = `${baseURL}/users`;

@@ -3,7 +3,7 @@ import config from './config'
 
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
-function App() {
+function App_base() {
 
   let [names, setNames] = useState([ ]);
 

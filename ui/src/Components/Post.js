@@ -21,6 +21,7 @@ const outerGrid = {
 
 const Post=({updateFn,deleteFn,entry})=> {
     const [ auth, setAuth ] = useContext(AuthContext);
+    console.log(setAuth);
     const {id, users_id, stamp, title, content}=entry;
 
     const [titleState, setTitleState] = useState(title);
@@ -105,7 +106,7 @@ const Post=({updateFn,deleteFn,entry})=> {
                                 setExpanded("Contract")}
                             else{
                                 setExpanded("Expand") 
-                            };
+                            }
                         }}
                     >{expanded}</Button>
                     <Button id={`EditButton_${id}`} 
@@ -139,6 +140,16 @@ const Post=({updateFn,deleteFn,entry})=> {
                     >Delete</Button> 
                 </Grid>
             </Grid>)
+}
+
+import PropTypes from 'prop-types';
+Post.propTypes = {
+  setAuth: PropTypes.func,
+  entryList: PropTypes.array,
+  updateFn:PropTypes.func,
+  deleteFn:PropTypes.func,
+  entry:PropTypes.object,
+
 }
 
 export default Post;

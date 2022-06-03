@@ -19,8 +19,10 @@ const baseURL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 function App() {
   const [nameList, setNameList, updateUsers] = useUsersList();
+  console.log(setNameList);
   const [filterNameChoices, setFilteredNameChoices] = useState([]);
   const [fullList, setFullList, updateFn] = useBloglist();
+  console.log(setFullList);
   const [filteredList, setFilteredList] = useState([]); //filtered blog entries
   const [openRegister, setOpenRegister] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
@@ -74,7 +76,9 @@ function App() {
       body: JSON.stringify(bodyData)
         
     }).then((res)=>{
-     updateFn()})
+     console.log(`App.js 79$${res}`)
+      updateFn()}
+     )
      .catch(err => console.log(`submitUpdate: ${err}`));
   }
 
@@ -83,7 +87,8 @@ function App() {
     fetch(`${baseURL}/posts/${id}`, {
       method: "DELETE", 
     }).then((res)=>{
-     updateFn()})
+      console.log(`App.js 90$${res}`)
+      updateFn()})
      .catch(err => console.log(`deleteEntry: ${err}`))
   }
 
@@ -97,6 +102,7 @@ function App() {
       body: JSON.stringify(bodyData)
         
     }).then((res)=>{
+      console.log(`App.js 105$${res}`)
      updateFn()})
      .catch(err => console.log(`createEntry: ${err}`));
   }
@@ -160,7 +166,7 @@ function App() {
           body: JSON.stringify(bodyData)
             
         }).then((res)=>{
-       
+          console.log(`App.js 169$${res}`)
           updateUsers();
         })
         .catch(err => console.log(`createUser: ${err}`));

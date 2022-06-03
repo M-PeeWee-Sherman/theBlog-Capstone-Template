@@ -15,9 +15,9 @@ const env = process.env.NODE_ENV || 'development'
 const config = require('../knexfile')[env]
 const knex = require('knex')(config)
 
-// app.get('/',(req,res)=>{
-//     res.status(200).json('Hello from root route');
-// })
+app.get('/',(req,res)=>{
+    res.status(200).json('Hello from root route');
+})
 
 app.get('/posts', (req,res)=>{
     console.log("GET posts");

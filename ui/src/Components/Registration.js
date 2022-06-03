@@ -35,7 +35,8 @@ const Registration = ({open, setOpen,createFn})=>{
   };
 
   const errorClose = e => {
-    setErrorOpen(false)
+    console.log(e);
+    setErrorOpen(false);
   };
 
   
@@ -269,5 +270,11 @@ const Registration = ({open, setOpen,createFn})=>{
     );
   }
 
+  import PropTypes from 'prop-types';
+  Registration.propTypes = {
+    open: PropTypes.bool,
+    setOpen: PropTypes.func,
+    createFn:PropTypes.func
+  }
 
 export default Registration;

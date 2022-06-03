@@ -19,7 +19,7 @@ const outerGrid = {
     
   }
 
-const Post=({disableCreate, users_id, createFn})=> {
+const CreatePost=({disableCreate, users_id, createFn})=> {
     const stamp = new Date().toUTCString();
     const [titleState, setTitleState] = useState("");
     const [contentState, setContentState] = useState("");
@@ -104,4 +104,12 @@ const Post=({disableCreate, users_id, createFn})=> {
             </div>)
 }
 
-export default Post;
+import PropTypes from 'prop-types';
+CreatePost.propTypes = {
+  disableCreate: PropTypes.bool,
+  users_id: PropTypes.number,
+  createFn:PropTypes.func,
+
+}
+
+export default CreatePost;
