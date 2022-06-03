@@ -58,7 +58,15 @@ const Post=({updateFn,deleteFn,entry})=> {
         setContentState(e.target.value);
     }
     if (entry.user_info.username==="ERROR") {
-        return(<SpinningCircles/>)}
+        return(<SpinningCircles
+              fill="#06bcee"
+              fillOpacity={1}
+              height="3em"
+              speed={1}
+              stroke="#06bcee"
+              strokeOpacity={1}
+              strokeWidth={2}
+            />)}
     else{
     return (<Grid
             container

@@ -9,7 +9,15 @@ const PostList=({updateFn,deleteFn,entryList})=> {
         <Post key={`Post_${element.id}`} updateFn={updateFn} deleteFn={deleteFn} entry={element}/>
     ))
     if (entryList.length===0) {
-        return(<SpinningCircles/>)
+        return(<SpinningCircles
+              fill="#06bcee"
+              fillOpacity={1}
+              height="3em"
+              speed={1}
+              stroke="#06bcee"
+              strokeOpacity={1}
+              strokeWidth={2}
+            />)
     } else {
         return ([<Stack 
                 key="stack_1"
