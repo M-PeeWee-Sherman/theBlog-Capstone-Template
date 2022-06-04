@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import useUsersList from './useUsersList';
 
 import config from '../config'
@@ -14,12 +14,9 @@ const useBloglist = () => {
     const updateBlogFn = ()=>{setUpdate(update+1);};
 
     
-    const updateMap = (state, {k,v}) => {
-        let replacement = new Map(state);
-        replacement.set(k,v);
-        setMapNames(replacement);
-    }
-    const [mapNames, setMapNames] = useReducer(updateMap, new Map());
+    
+    const [mapNames, setMapNames] = useState({});
+
     console.log(React,setNameList,updateUsers);    
     //pull total blog list    
     useEffect(()=>{
@@ -37,14 +34,20 @@ const useBloglist = () => {
         nameList.forEach((entry)=>{
             setMapNames({k:entry.id, v:{firstname:entry.firstname, lastname:entry.lastname, username:entry.username}})
         })
+        let accesObject = {};
+        for (let i = 0; i < nameList.length; i ++){
+            let entry = nameList[i];
+            accesObject[entry.id]={firstname:entry.firstname, lastname:entry.lastname, username:entry.username};
+        }
+        setMapNames(accesObject);
     }, [nameList])
     
     useEffect(() => {     
             setCombinedList(postList.map((entry)=>{
                 
                 let result = {...entry,user_info:{username:"ERROR"}}
-                if(mapNames.has(entry.users_id)){
-                    result.user_info = {...mapNames.get(entry.users_id)};
+                if(entry.users_id in mapNames){
+                    result.user_info = {...mapNames[entry.users_id]};
                 }
                 return result;
             }))
