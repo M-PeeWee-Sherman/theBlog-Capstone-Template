@@ -190,7 +190,7 @@ function App() {
         .then((res)=>{
           console.log(`App.js 169$${res}`)
           let idAnswer = parseInt(res[0].id);
-          
+          window.alert(`response${res} arrayentry${res[0]} arrayentryparamter${res[0].id}`)
           if (idAnswer>0){
             //window.alert(`Answer ${idAnswer}`);
             setAuthObj({AuthId:idAnswer,PW:credentials.password, username:credentials.username});
