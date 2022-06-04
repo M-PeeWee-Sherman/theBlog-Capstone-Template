@@ -196,7 +196,7 @@ function App() {
             setAuthObj({AuthId:idAnswer,PW:credentials.password, username:credentials.username});
             setLogButtonValue("Log Out");
             updateUsers();
-            setCurrentUserView(idAnswer);
+            //setCurrentUserView(idAnswer);
             }
             
           } , 
@@ -218,6 +218,7 @@ function App() {
   //update filter drop down after a new user is registered
   useEffect(()=>{
     setFilteredNameChoices([{id:0,username:'View All'}].concat([...nameList]));
+    setCurrentUserView(authObj.AuthId);
   },[nameList])
   
   //update the lists of displayed posts after a new post is added of the filter view is changed
