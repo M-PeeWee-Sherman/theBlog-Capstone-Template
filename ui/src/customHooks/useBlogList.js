@@ -19,14 +19,9 @@ const useBloglist = () => {
         let urlPosts = `${baseURL}/posts`;
         const fetchPosts = fetch(urlPosts);
 
-        Promise.all(fetchNames, fetchPosts)
+        Promise.all([fetchNames, fetchPosts])
         .then(([namesRaw, postsRaw]) => [namesRaw.json(),postsRaw.json() ])
         .then(([namesJSON, postsJSON])=>{
-               
-            setNameList(namesJSON);
-            setPostList(postsJSON);
-            console.log(nameList,postList);
-
             let indexList = namesJSON.map((entry)=>entry.id); 
             setCombinedList(postsJSON.map((entry)=>{
             let result = {...entry,user_info:{username:"ERROR"}}
@@ -34,6 +29,9 @@ const useBloglist = () => {
             if(index>=0){
                 result.user_info = {...namesJSON[index]};
             }
+            setNameList(namesJSON);
+            setPostList(postsJSON);
+            console.log(nameList,postList);
             return {...result};
         }))
         })
