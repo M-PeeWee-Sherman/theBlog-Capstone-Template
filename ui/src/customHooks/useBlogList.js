@@ -46,7 +46,7 @@ const useBloglist = () => {
                 }
                 return result;
             }))
-    }, [update,postList, mapNames]);
+    }, [postList, mapNames]);
 
 
     return [combinedList, setCombinedList, updateBlogFn];
