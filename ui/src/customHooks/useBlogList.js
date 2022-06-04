@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import useUsersList from './useUsersList';
 
 import config from '../config'
@@ -13,11 +13,13 @@ const useBloglist = () => {
     const [update, setUpdate] = useState(0);
     const updateBlogFn = ()=>{setUpdate(update+1);};
 
-    const [mapNames, setMapNames] = useState(new Map());
-    const updateMap = (k,v) => {
-        setMapNames(new Map(mapNames.set(k,v)));
+    
+    const updateMap = (state, {k,v}) => {
+        let replacement = new Map(state);
+        replacement.set(k,v);
+        setMapNames(replacement);
     }
-
+    const [mapNames, setMapNames] = useReducer(updateMap, new Map());
     console.log(React,setNameList,updateUsers);    
     //pull total blog list    
     useEffect(()=>{
@@ -33,7 +35,7 @@ const useBloglist = () => {
     
     useEffect(()=>{
         nameList.forEach((entry)=>{
-            updateMap(entry.id,{firstname:entry.firstname, lastname:entry.lastname, username:entry.username})
+            setMapNames({k:entry.id, v:{firstname:entry.firstname, lastname:entry.lastname, username:entry.username}})
         })
     }, [nameList])
     
