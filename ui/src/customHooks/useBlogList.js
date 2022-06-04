@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useUsersList from './useUsersList';
 import config from '../config'
 const baseURL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -11,19 +11,20 @@ const useBloglist = () => {
     const updateBlogFn = ()=>{setUpdate(update+1);};
 
     const [mapNames, setMapNames] = useState(new Map());
-    const updateMap = (k,v) => {
-        setMapNames(new Map(mapNames.set(k,v)));
-    }
+    // const updateMap = (k,v) => {
+    //     setMapNames(new Map(mapNames.set(k,v)));
+    // }
 
-    console.log(React,setNameList,updateUsers);    
+    console.log(setNameList,updateUsers);    
     //pull total blog list    
     useEffect(()=>{
         let urlPosts = `${baseURL}/posts`;
         fetch(urlPosts)
         .then((res) => res.json())
         .then((data) => {
-  
+            updateUsers();
             setPostList(data);
+            
         },(err) => console.log(`useBlogList: ${err}`));
     },[update])  
 
