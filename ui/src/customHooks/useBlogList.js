@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import useUsersList from './useUsersList';
-
 import config from '../config'
 const baseURL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
-
 
 const useBloglist = () => {
     const [postList, setPostList] = useState([]);
@@ -32,9 +29,12 @@ const useBloglist = () => {
 
     
     useEffect(()=>{
-        nameList.forEach((entry)=>{
-            updateMap(entry.id,{firstname:entry.firstname, lastname:entry.lastname, username:entry.username})
-        })
+        let temp = new Map();
+        for (let i = 0; i < nameList.length; i ++){
+            let entry = nameList[i];
+            temp.set(entry.id,{firstname:entry.firstname, lastname:entry.lastname, username:entry.username})
+        }
+        setMapNames(new Map(temp))
     }, [nameList])
     
     useEffect(() => {     
