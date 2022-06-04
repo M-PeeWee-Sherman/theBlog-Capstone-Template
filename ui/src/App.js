@@ -203,9 +203,6 @@ function App() {
           (err) => {
             window.alert(`Registration succes but response timed-out ${err}`)
             console.log(`createUser: ${err}`)});
-
-    
-
   }
 
 
@@ -224,7 +221,8 @@ function App() {
   //update the lists of displayed posts after a new post is added of the filter view is changed
   useEffect(()=>{   
     setFilteredList([].concat(fullList.filter((element)=>(((currentUserView.id===0) || (element.users_id===currentUserView.id))))));
-  },[fullList, currentUserView])
+
+  },[nameList, fullList, currentUserView])
   
   return (
     <div className="App">
