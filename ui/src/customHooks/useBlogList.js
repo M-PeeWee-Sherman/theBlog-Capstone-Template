@@ -31,9 +31,6 @@ const useBloglist = () => {
 
     
     useEffect(()=>{
-        nameList.forEach((entry)=>{
-            setMapNames({k:entry.id, v:{firstname:entry.firstname, lastname:entry.lastname, username:entry.username}})
-        })
         let accesObject = {};
         for (let i = 0; i < nameList.length; i ++){
             let entry = nameList[i];
