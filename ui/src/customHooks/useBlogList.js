@@ -13,10 +13,6 @@ const useBloglist = () => {
     const [update, setUpdate] = useState(0);
     const updateBlogFn = ()=>{setUpdate(update+1);};
 
-    
-    
-    const [mapNames, setMapNames] = useState({});
-
     console.log(React,setNameList,updateUsers);    
     //pull total blog list    
     useEffect(()=>{
@@ -30,25 +26,19 @@ const useBloglist = () => {
     },[update])  
 
     
-    useEffect(()=>{
-        let accesObject = {};
-        for (let i = 0; i < nameList.length; i ++){
-            let entry = nameList[i];
-            accesObject[entry.id]={firstname:entry.firstname, lastname:entry.lastname, username:entry.username};
-        }
-        setMapNames(accesObject);
-    }, [nameList])
-    
     useEffect(() => {     
-            setCombinedList(postList.map((entry)=>{
+        let indexList = nameList.map((entry)=>entry.id);    
+        
+        setCombinedList(postList.map((entry)=>{
                 
                 let result = {...entry,user_info:{username:"ERROR"}}
-                if(entry.users_id in mapNames){
-                    result.user_info = {...mapNames[entry.users_id]};
+                let index = indexList.findIndex(entry.users_id);
+                if(index>=0){
+                    result.user_info = {...nameList[index]};
                 }
                 return result;
             }))
-    }, [postList, mapNames]);
+    }, [postList, nameList]);
 
 
     return [combinedList, setCombinedList, updateBlogFn];
