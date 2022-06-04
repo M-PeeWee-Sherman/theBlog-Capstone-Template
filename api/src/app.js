@@ -76,21 +76,6 @@ app.delete('/posts/:id', (req,res)=>{
 
 })
 
-app.get('/onepost/:id', (req,res)=>{
-    let id = req.params.id;
-    //console.log(`Received request to delete ${id}`)
-    knex('posts').select('*').where({id}).then((result)=>{
-        return res.status(201).json(result);
-    })
-    .catch(err =>
-        res.status(404).json({
-          message:
-            `The post you are looking for could not be found. Please try again${err}`
-        })
-      );
-
-})
-
 //Get All User Details
 app.get('/users', (req,res)=>{
     console.log("GET users");

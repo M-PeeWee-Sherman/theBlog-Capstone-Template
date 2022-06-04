@@ -1,4 +1,5 @@
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import useUsersList from './useUsersList';
 
 import config from '../config'
 const baseURL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
@@ -7,37 +8,46 @@ const baseURL = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 const useBloglist = () => {
     const [postList, setPostList] = useState([]);
-    //const [nameList, setNameList, updateUsers] = useUsersList();
+    const [nameList, setNameList, updateUsers] = useUsersList();
     const [combinedList, setCombinedList] = useState([]);
     const [update, setUpdate] = useState(0);
     const updateBlogFn = ()=>{setUpdate(update+1);};
-    const [nameList, setNameList] = useState([]);
+
+    const [mapNames, setMapNames] = useState(new Map());
+    const updateMap = (k,v) => {
+        setMapNames(new Map(mapNames.set(k,v)));
+    }
+
+    console.log(React,setNameList,updateUsers);    
     //pull total blog list    
     useEffect(()=>{
-        let urlNames = `${baseURL}/users`;
-        const fetchNames = fetch(urlNames);
         let urlPosts = `${baseURL}/posts`;
-        const fetchPosts = fetch(urlPosts);
-
-        Promise.all([fetchNames, fetchPosts])
-        .then(([namesRaw, postsRaw]) => [namesRaw.json(),postsRaw.json() ])
-        .then(([namesJSON, postsJSON])=>{
-            let indexList = namesJSON.map((entry)=>entry.id); 
-            setCombinedList(postsJSON.map((entry)=>{
-            let result = {...entry,user_info:{username:"ERROR"}}
-            let index = indexList.findIndex(entry.users_id);
-            if(index>=0){
-                result.user_info = {...namesJSON[index]};
-            }
-            setNameList(namesJSON);
-            setPostList(postsJSON);
-            console.log(nameList,postList);
-            return {...result};
-        }))
-        })
-        .catch((e)=>{console.log(`useBLogList Error ${e}`)})
-
+        fetch(urlPosts)
+        .then((res) => res.json())
+        .then((data) => {
+  
+            setPostList(data);
+        },(err) => console.log(`useBlogList: ${err}`));
     },[update])  
+
+    
+    useEffect(()=>{
+        nameList.forEach((entry)=>{
+            updateMap(entry.id,{firstname:entry.firstname, lastname:entry.lastname, username:entry.username})
+        })
+    }, [nameList])
+    
+    useEffect(() => {     
+            setCombinedList(postList.map((entry)=>{
+                
+                let result = {...entry,user_info:{username:"ERROR"}}
+                if(mapNames.has(entry.users_id)){
+                    result.user_info = {...mapNames.get(entry.users_id)};
+                }
+                return result;
+            }))
+    }, [update,postList, mapNames]);
+
 
     return [combinedList, setCombinedList, updateBlogFn];
 }
