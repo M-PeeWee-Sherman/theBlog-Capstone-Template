@@ -24,7 +24,8 @@ const Post=({updateFn,deleteFn,entry})=> {
     const [ auth, setAuth ] = useContext(AuthContext);
     console.log(setAuth);
     const {id, users_id, stamp, title, content}=entry;
-
+    const [username, setUsername] = useState(entry.user_info.username);
+    console.log(setUsername);
     const [titleState, setTitleState] = useState(title);
     const [contentState, setContentState] = useState(content);
     const editFields = [{label:"Edit",readOnly:true,display:"none"},{label:"Cancel",readOnly:false,display:"block"}]
@@ -60,8 +61,9 @@ const Post=({updateFn,deleteFn,entry})=> {
     let handleInputContentChange=(e)=>{
         setContentState(e.target.value);
     }
-    if (entry.user_info.username==="ERROR") {
+    if (username==="ERROR") {
         return(<SpinningCircles
+              key={username}
               fill="#06bcee"
               fillOpacity={1}
               height="3em"
